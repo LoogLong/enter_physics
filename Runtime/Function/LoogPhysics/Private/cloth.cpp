@@ -5,7 +5,7 @@
 CCloth::CCloth(float height, int num_height_node, int num_width_node, float spring_k, float mass, std::vector<XMFLOAT4> pinned_nodes)
 {
 	// 构建cloth 网格
-	assert(pinned_nodes.size() == 2, "");
+	assert(pinned_nodes.size() == 2);
 
 	const XMVECTOR left_point = XMLoadFloat4(&pinned_nodes[0]);
 	const XMVECTOR right_point = XMLoadFloat4(&pinned_nodes[1]);
@@ -13,7 +13,7 @@ CCloth::CCloth(float height, int num_height_node, int num_width_node, float spri
 	const float delta_height = - height / static_cast<float>(num_height_node);
 
 	const XMVECTOR left_to_right = right_point - left_point;
-	const XMVECTOR delta_direction = left_to_right / num_width_node;
+	const XMVECTOR delta_direction = left_to_right / (float)num_width_node;
 
 	std::vector<XMVECTOR> first_line;
 	first_line.reserve(num_width_node+1);
@@ -21,7 +21,7 @@ CCloth::CCloth(float height, int num_height_node, int num_width_node, float spri
 	
 	for (int i = 0; i <= num_width_node; ++i)
 	{
-		first_line.emplace_back(left_point+delta_direction*i);
+		first_line.emplace_back(left_point+delta_direction*(float)i);
 	}
 
 	m_mass.reserve((num_width_node + 1) * (num_height_node + 1));
@@ -113,7 +113,7 @@ void CCloth::SimulateVerlet(float delta_t, DirectX::XMFLOAT4 gravity)
 
 			int random_val = g_distr(g_eng);
 			/*Wind Force*/
-			const XMVECTOR wind_force = XMVectorSet(random_val, 0, random_val, 0);
+			const XMVECTOR wind_force = XMVectorSet((float)random_val, 0.f, (float)random_val, 0.f);
 
 			XMVECTOR total_acceleration = wind_force / m.mass + gravity_vector;
 
@@ -186,7 +186,7 @@ void CCloth::SimulateEuler(float delta_t, DirectX::XMFLOAT4 gravity)
 
 			int random_val = g_distr(g_eng);
 			/*Wind Force*/
-			const XMVECTOR wind_force = XMVectorSet(random_val, 0, random_val, 0);
+			const XMVECTOR wind_force = XMVectorSet((float)random_val, 0, (float)random_val, 0);
 			/*阻力*/
 			XMVECTOR dump_force = -velocity * Config::DUMP_FACTOR;
 
@@ -261,7 +261,7 @@ void CCloth::SimulateImplicitEuler(float delta_t, DirectX::XMFLOAT4 gravity)
 
 	int random_val = g_distr(g_eng);
 	/*Wind Force*/
-	const XMVECTOR wind_force = XMVectorSet(random_val, 0, random_val, 0);
+	const XMVECTOR wind_force = XMVectorSet((float)random_val, 0.f, (float)random_val, 0.f);
 	const XMVECTOR gravity_vec = XMLoadFloat4(&gravity);
 
 	for (int k = 0; k < max_iteration; ++k)
@@ -346,7 +346,7 @@ void CCloth::SimulatePBDJacobi(float delta_t, DirectX::XMFLOAT4 gravity)
 
 			int random_val = g_distr(g_eng);
 			/*Wind Force*/
-			const XMVECTOR wind_force = XMVectorSet(random_val, 0, random_val, 0);
+			const XMVECTOR wind_force = XMVectorSet((float)random_val, 0.f, (float)random_val, 0.f);
 
 			XMVECTOR total_acceleration = wind_force / m.mass + gravity_vector;
 
@@ -386,7 +386,7 @@ void CCloth::SimulatePBDJacobi(float delta_t, DirectX::XMFLOAT4 gravity)
 			{
 				XMVECTOR this_position = XMLoadFloat4(&m.position);
 				XMVECTOR move = XMLoadFloat4(&m.m_move);
-				this_position = this_position + move / m.m_move_count;
+				this_position = this_position + move / (float)m.m_move_count;
 
 				XMStoreFloat4(&m.position, this_position);
 
@@ -413,7 +413,7 @@ void CCloth::SimulatePBDJacobiGames(float delta_t, DirectX::XMFLOAT4 gravity)
 
 			int random_val = g_distr(g_eng);
 			/*Wind Force*/
-			const XMVECTOR wind_force = XMVectorSet(random_val, 0, random_val, 0);
+			const XMVECTOR wind_force = XMVectorSet((float)random_val, 0.f, (float)random_val, 0.f);
 
 			XMVECTOR total_acceleration = wind_force / m.mass + gravity_vector;
 
@@ -472,8 +472,8 @@ void CCloth::SimulatePBDJacobiGames(float delta_t, DirectX::XMFLOAT4 gravity)
 PhysicCloth::PhysicCloth()
 {
 	std::vector<XMFLOAT4> pined_node;
-	pined_node.emplace_back(-200, 200, 0, 1.0f);
-	pined_node.emplace_back(200, 200, 0, 1.0f);
+	pined_node.emplace_back(-200.f, 200.f, 0.f, 1.0f);
+	pined_node.emplace_back(200.f, 200.f, 0.f, 1.0f);
 	m_cloth = new CCloth(400.f, 30, 30, Config::ks, Config::mass, pined_node);
 	m_cloth_euler = new CCloth(400.f, 50, 50, Config::ks, Config::mass, pined_node);
 }

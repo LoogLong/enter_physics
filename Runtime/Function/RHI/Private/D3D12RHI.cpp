@@ -171,9 +171,9 @@ void D3D12RHI::CreatePipelineStateObject()
 #else
 		UINT nCompileFlags = 0;
 #endif
-	TCHAR psz_shader_file_name[MAX_PATH] = {};
-	StringCchPrintf(psz_shader_file_name, MAX_PATH, _T("%s")/*, pszAppPath*/, RHID3D12::SHADER_PATH);
-
+	WCHAR psz_shader_file_name[MAX_PATH] = {};
+	// StringCchPrintf(psz_shader_file_name, MAX_PATH, _T("%s")/*, pszAppPath*/, RHID3D12::SHADER_PATH);
+	
 	if (!SUCCEEDED(
 		D3DCompileFromFile(psz_shader_file_name, nullptr, nullptr, "VSMain", "vs_5_0", nCompileFlags, 0, &
 			blob_vertex_shader, &error_blob)))

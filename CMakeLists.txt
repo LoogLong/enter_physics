@@ -1,10 +1,28 @@
-project(EnterPhysics)
 cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(BUILD_SHARED_LIBS OFF)
 
+#…Ë÷√ ‰≥ˆ¬∑æ∂
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Debug)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_Release ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Release)
+
+set(CMAKE_PDB_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Debug)
+set(CMAKE_PDB_OUTPUT_DIRECTORY_Release ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Release)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Debug)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_Release ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Release)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Debug)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_Release ${CMAKE_CURRENT_SOURCE_DIR}/Binary/Release)
+
+
+project(EnterPhysics)
 set(PROJCET_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-add_subdirectory(fast_mass_spring)
-add_subdirectory(3rdparty)
+set(PROJECT_THIRD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty)
+set(PROJECT_ASSET_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Resource)
+add_subdirectory(Runtime)
+#add_subdirectory(ThirdParty)
+add_subdirectory(Editor)
+add_subdirectory(Game)

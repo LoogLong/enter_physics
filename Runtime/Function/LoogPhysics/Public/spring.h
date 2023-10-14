@@ -19,7 +19,7 @@ struct SSpring
 	}
 
 	float k;
-	double rest_length;
+	float rest_length;
 
 	SMass* m1;
 	SMass* m2;

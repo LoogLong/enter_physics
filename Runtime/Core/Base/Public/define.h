@@ -22,4 +22,5 @@ namespace Config
 	constexpr uint32_t steps_per_frame = 64;
 	constexpr float DUMP_FACTOR = 0.01f;
 
+	constexpr uint32_t default_window_size[2] = {1920, 1080};
 };

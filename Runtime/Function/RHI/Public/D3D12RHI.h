@@ -6,6 +6,7 @@
 #include <vector>
 #include <cassert>
 #include <d3dcompiler.h>
+#include <string>
 #include <strsafe.h>
 #include <tchar.h>
 
@@ -20,7 +21,7 @@ namespace RHID3D12
 	constexpr UINT DXGI_FACTORY_FLAGS = 0U;
 	constexpr UINT FRAME_BACK_BUF_COUNT = 3u;
 
-	constexpr TCHAR SHADER_PATH[MAX_PATH] = _T("Shader\\shaders.hlsl");
+	const std::string SHADER_PATH= "Resource\\Shader\\shaders.hlsl";
 }
 
 #define CHECK_RESULT(hr) if(!SUCCEEDED(hr)){ printf("[ERROR]:line:%d\n", __LINE__);}
