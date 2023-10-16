@@ -8,5 +8,9 @@ namespace Lg {
 		~CLevel() = default;
 
 		void TickLevel(float dt);
+
+
+	private:
+		
 	};
 }
